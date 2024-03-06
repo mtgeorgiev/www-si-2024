@@ -1,0 +1,18 @@
+.cls1 {
+    font-size: 100px;
+}
+.class123 {
+    color: blue;
+}
+#header-element {
+    color: yellow;
+}
+
+.my-forms .submit-input {
+    background-color: red;
+    color: white;
+}
+
+.cls1, .class123, .my-forms .submit-input {
+    font-weight: bold;
+}

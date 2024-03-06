@@ -1,0 +1,32 @@
+.cls1 {
+    font-size: 100px;
+}
+.class123 {
+    color: brown;
+}
+#header-element {
+    color: rgb(210, 85, 85);
+}
+
+.my-forms .submit-input {
+    background-color: green;
+    color: white;
+}
+
+.cls1, .class123, .my-forms .submit-input {
+    font-weight: 100;
+}
+
+.cls1.class123 {
+    font-size: 200px;
+    color: red;
+}
+
+.links {
+    color: yellow;
+}
+
+.links:hover {
+    color: green;
+    cursor: crosshair
+}
