@@ -16,3 +16,21 @@
 .cls1, .class123, .my-forms .submit-input {
     font-weight: bold;
 }
+
+#login-form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    width: 200px;
+}
+
+#login-form label {
+    display: block;
+    width: 200px;
+}
+
+
+#login-form .row {
+    margin-bottom: 10px;
+}

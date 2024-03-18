@@ -30,3 +30,7 @@
     color: green;
     cursor: crosshair
 }
+
+.test-text {
+    font: italic bold 16px/30px Verdana, Consolas, sans-serif;
+}
