@@ -30,7 +30,15 @@
     width: 200px;
 }
 
-
 #login-form .row {
     margin-bottom: 10px;
+}
+
+input.warning {
+    background-color: yellow;
+}
+
+input.error {
+    background-color: #fff1f0;
+    border: solid 1px red;
 }
