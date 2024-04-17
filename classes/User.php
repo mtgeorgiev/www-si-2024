@@ -1,14 +1,18 @@
 <?php
 
-class User
+class User implements JsonSerializable
 {
+    private $id;
     private $name;
     private $password;
+    private $registeredOn;
 
-    public function __construct(string $name, string $password)
+    public function __construct(string $id, string $name, string $password, string $registeredOn)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->password = $password;
+        $this->registeredOn = $registeredOn;
     }
 
     // getters and setters
@@ -34,11 +38,20 @@ class User
 
     public static function fromArray(array $data): User
     {
-        return new User($data['name'], $data['password']);
+        return new User($data['id'], $data['name'], $data['password'], $data['registered_on']);
     }
 
     public function __toString(): string
     {
         return json_encode($this, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'registered_on' => $this->registeredOn,
+        ];
     }
 }

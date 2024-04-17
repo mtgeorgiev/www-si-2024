@@ -19,7 +19,22 @@ usernameInput.setAttribute('maxLength', Math.floor(usernameInput.getAttribute('m
 
 const submitHandler = event => {
     event.preventDefault();
-    console.log('Form submitted', event);
+
+    fetch(event.target.getAttribute('action'), {
+        method: 'POST',
+        body: new FormData(event.target)
+    })
+    .then(response => response.json())
+    .then(data => {
+        let errorContainer = document.getElementById('form-error');
+        errorContainer.innerHTML = ''; // clear possible past errors
+
+        data.errors.forEach(error => {
+            let errorElement = document.createElement('div');
+            errorElement.innerText = error;
+            errorContainer.appendChild(errorElement);
+        });
+    })
 };
 
 const submitButton = document.getElementById('login-form');
