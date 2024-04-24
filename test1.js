@@ -39,3 +39,13 @@ const submitHandler = event => {
 
 const submitButton = document.getElementById('login-form');
 submitButton.addEventListener('submit', submitHandler);
+
+fetch('./session.php')
+    .then(response => response.json())
+    .then(userData => {
+        if (userData) {
+            console.log(`User ${userData.name} is loggged in`);
+        } else {
+            console.warn('Никой не е логнат, бе!');
+        }
+    });

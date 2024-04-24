@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'bootstrap.php';
 
 switch ($_SERVER['REQUEST_METHOD'])
@@ -10,7 +12,7 @@ switch ($_SERVER['REQUEST_METHOD'])
         break;
     case 'GET':
         // get user info
-        $result = UserRequestHandler::getUserInfo();
+        $result = (new UserRequestHandler())->getUserInfo();
         break;
     case 'PUT':
         // update user info

@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>Заглавие</title>
         <link href="style.css" rel="stylesheet">
-        <script src="test1.js" defer></script>
+        <script src="./test1.js" defer></script>
     </head>
     <body>
         <a style="position: fixed; top: 10px; left: 10px;" href="#element_38">Към елемент 38</a>

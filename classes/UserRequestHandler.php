@@ -12,10 +12,13 @@ class UserRequestHandler {
     public function createUser($userData): ?User
     {
         $name = $userData['name'];
-        $password = $userData['password'];
+        $password = password_hash($userData['password'], PASSWORD_DEFAULT);
 
-        $insertStatement = $this->connection->prepare("INSERT INTO users (name, password) VALUES (:name, :password)");
-        $insertResult = $insertStatement->execute(['name' => $name, 'password' => $password]);
+        $insertStatement = $this->connection->prepare("INSERT INTO `users` (name, password) VALUES (:name, :password)");
+        $insertResult = $insertStatement->execute([
+            'name' => $name,
+            'password' => $password
+        ]);
 
         if (!$insertResult) 
         {
@@ -42,9 +45,28 @@ class UserRequestHandler {
         return User::fromArray($userData);
     }
 
-    public static function getUserInfo()
+    public function getUserInfo(): array
     {
-        // get user info
+
+        if (!isset($_SESSION['username'])) 
+        { // simple authorization
+            return [];
+        }
+
+        $selectStatement = $this->connection->prepare("SELECT * FROM `users`");
+        $selectResult = $selectStatement->execute();
+
+        if (!$selectResult) 
+        {
+            // something very wrong has happened
+            return [];
+        }
+
+        $users = $selectStatement->fetchAll();
+
+        return array_map(function($userData) {
+            return User::fromArray($userData);
+        }, $users);
     }
 
     public static function updateUser()
