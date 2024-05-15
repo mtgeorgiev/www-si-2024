@@ -1,9 +1,10 @@
 <?php
 
+session_start();
+
 spl_autoload_register(function (string $className)
 {
     $includePaths = [
-        ".",
         "./classes",
     ];
     foreach ($includePaths as $path) {

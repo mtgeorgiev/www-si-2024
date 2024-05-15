@@ -12,12 +12,12 @@ class SessionRequestHandler
     public function login(array $data): ?User
     {
         $stmt = $this->connection->prepare('SELECT * FROM users WHERE name = :name');
-        $stmt->execute(['name' => $data['name']]);
+        $stmt->execute(['name' => $data['username']]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($data['password'], $user['password']))
         {
-            $_SESSION['username'] = $user['name'];
+            Session::setLoggedState($user['name']);
             return User::fromArray($user);
         }
 
@@ -26,7 +26,7 @@ class SessionRequestHandler
 
     public function checkLoginStatus(): ?array
     {
-        return isset($_SESSION['username']) ? ['name' => $_SESSION['username']] : null;
+        return Session::isLogged() ? ['name' => Session::getUsername()] : null;
     }
 
     public function logout(): bool

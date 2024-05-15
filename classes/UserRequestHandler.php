@@ -45,10 +45,31 @@ class UserRequestHandler {
         return User::fromArray($userData);
     }
 
-    public function getUserInfo(): array
+    public function getUserById($id): ?User
+    {
+        if (!Session::isLogged())
+        { // simple authorization
+            return [];
+        }
+
+        $selectStatement = $this->connection->prepare("SELECT * FROM users WHERE id = ?");
+        $selectResult = $selectStatement->execute([$id]);
+
+        if (!$selectResult) 
+        {
+            // something very wrong has happened
+            return null;
+        }
+
+        $userData = $selectStatement->fetch();
+
+        return User::fromArray($userData);
+    }
+
+    public function getAllUsers(): array
     {
 
-        if (!isset($_SESSION['username'])) 
+        if (!Session::isLogged())
         { // simple authorization
             return [];
         }

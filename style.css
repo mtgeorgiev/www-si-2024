@@ -42,3 +42,7 @@ input.error {
     background-color: #fff1f0;
     border: solid 1px red;
 }
+
+.hidden {
+    display: none;
+}
