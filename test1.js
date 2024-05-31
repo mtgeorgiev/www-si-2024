@@ -16,16 +16,25 @@
 
 // usernameInput.setAttribute('maxLength', Math.floor(usernameInput.getAttribute('ml') * 1.5));
 
+const login = {
+    submitLoginFormHandler: event => {
+        event.preventDefault();
+    
+        fetch(event.target.getAttribute('action'), {
+            method: 'POST',
+            body: new FormData(event.target)
+        })
+        .then(response => response.json())
+        .then(this.loginOnSuccess)
+    },
+    loginOnSuccess: data => {
 
-const submitLoginFormHandler = event => {
-    event.preventDefault();
+        // if (data) {
+        //     let user = new User(data);
+        //     document.body.appendChild(user.getInfoDiv());
+        // }
+        
 
-    fetch(event.target.getAttribute('action'), {
-        method: 'POST',
-        body: new FormData(event.target)
-    })
-    .then(response => response.json())
-    .then(data => {
         let errorContainer = document.getElementById('form-error');
         errorContainer.innerHTML = ''; // clear possible past errors
 
@@ -38,11 +47,11 @@ const submitLoginFormHandler = event => {
         if (!data.errors) {
             document.location = "./homepage.html";
         }
-    })
+    },
+    loginForm: document.getElementById('login-form'),
 };
 
-const loginForm = document.getElementById('login-form');
-loginForm.addEventListener('submit', submitLoginFormHandler);
+login.loginForm.addEventListener('submit', login.submitLoginFormHandler);
 
 fetch('./session.php')
     .then(response => response.json())
@@ -67,3 +76,31 @@ const logoutHandler = event => {
 
 const logoutButton = document.getElementById('logout-button');
 logoutButton.addEventListener('click', logoutHandler);
+
+class User {
+
+    // constructor(id, name, registeredOn) {
+    //     this.id = id;
+    //     this.name = name;
+    //     this.registeredOn = registeredOn;
+    // }
+
+    constructor({id, name, registeredOn}) {
+        this.id = id;
+        this.name = name;
+        this.registeredOn = registeredOn;
+    }
+
+    getInfoDiv() {
+        let userElement = document.createElement('div');
+        userElement.innerHTML = `Hello, ${this.name}. You were registered on ${this.registeredOn}`;
+        return userElement;
+    }
+
+    getDaysAfterRegistration() {
+        let registeredOn = new Date(this.registeredOn);
+        let today = new Date();
+        let difference = today - registeredOn;
+        return Math.floor(difference / (1000 * 60 * 60 * 24));
+    }
+}
